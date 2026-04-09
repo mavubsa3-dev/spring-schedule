@@ -4,6 +4,7 @@ import com.example.schedule.dto.ScheduleRequest;
 import com.example.schedule.dto.ScheduleResponse;
 import com.example.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<ScheduleResponse> createSchedule(@RequestBody ScheduleRequest request){
         ScheduleResponse result = scheduleService.addSchedule(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
 
