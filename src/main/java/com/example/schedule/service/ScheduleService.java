@@ -6,12 +6,14 @@ import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
 
+    @Transactional
     public ScheduleResponse addSchedule(ScheduleRequest request){
         Schedule schedule = new Schedule(request.getName(),
                                          request.getTitle(),
