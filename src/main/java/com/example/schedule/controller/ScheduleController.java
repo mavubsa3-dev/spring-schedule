@@ -20,9 +20,9 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    @GetMapping
-    public ResponseEntity<ScheduleResponse> getOneSchedule(@PathVariable Long schduleId){
-        ScheduleResponse result = scheduleService.getOneSchedule(schduleId);
+    @GetMapping("/{scheduleId}")
+    public ResponseEntity<ScheduleResponse> getOneSchedule(@PathVariable Long scheduleId){
+        ScheduleResponse result = scheduleService.getOneSchedule(scheduleId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

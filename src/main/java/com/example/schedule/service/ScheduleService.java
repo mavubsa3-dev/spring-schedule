@@ -28,8 +28,8 @@ public class ScheduleService {
     }
 
     @Transactional
-    public ScheduleResponse getOneSchedule(Long schduleId){
-        Schedule schedule = scheduleRepository.findById(schduleId).orElseThrow(
+    public ScheduleResponse getOneSchedule(Long scheduleId){
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () ->  new IllegalStateException("존재하지 않는 일정입니다.")
         );
         return new ScheduleResponse(schedule.getName(),
