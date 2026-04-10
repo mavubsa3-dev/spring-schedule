@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,7 +45,19 @@ public class ScheduleService {
     public List<ScheduleResponse> getSchedule(String userName){
         List<Schedule> scheduleList;
         if(!userName.isEmpty()){
-
+            scheduleList = scheduleRepository.findAllByNameOrderByDateDesc(userName);
+        }else{
+            scheduleList = scheduleRepository.findAllByOrderByDateDesc();
         }
+        List<ScheduleResponse> scheduleResponseList = new ArrayList<>();
+        for(int i=0; i<scheduleList.size(); i++){
+            Schedule schedule = scheduleList.get(i);
+            ScheduleResponse scheduleResponse = new ScheduleResponse(schedule.getName(),
+                                                                     schedule.getTitle(),
+                                                                     schedule.getContent(),
+                                                                     schedule.getDate());
+            scheduleResponseList.add(scheduleResponse);
+        }
+        return scheduleResponseList;
     }
 }
