@@ -26,4 +26,15 @@ public class ScheduleService {
                                     savedSchedule.getContent(),
                                     savedSchedule.getDate());
     }
+
+    @Transactional
+    public ScheduleResponse getOneSchedule(Long schduleId){
+        Schedule schedule = scheduleRepository.findById(schduleId).orElseThrow(
+                () ->  new IllegalStateException("존재하지 않는 일정입니다.")
+        );
+        return new ScheduleResponse(schedule.getName(),
+                                    schedule.getTitle(),
+                                    schedule.getContent(),
+                                    schedule.getDate());
+    }
 }
