@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
@@ -27,7 +29,7 @@ public class ScheduleService {
                                     savedSchedule.getDate());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ScheduleResponse getOneSchedule(Long scheduleId){
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () ->  new IllegalStateException("존재하지 않는 일정입니다.")
@@ -36,5 +38,13 @@ public class ScheduleService {
                                     schedule.getTitle(),
                                     schedule.getContent(),
                                     schedule.getDate());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ScheduleResponse> getSchedule(String userName){
+        List<Schedule> scheduleList;
+        if(!userName.isEmpty()){
+
+        }
     }
 }
