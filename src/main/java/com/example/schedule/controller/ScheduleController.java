@@ -34,5 +34,8 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    @PutMapping("/{scheduleId}")
+
+
 
 }
