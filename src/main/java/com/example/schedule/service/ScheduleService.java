@@ -2,6 +2,8 @@ package com.example.schedule.service;
 
 import com.example.schedule.dto.ScheduleRequest;
 import com.example.schedule.dto.ScheduleResponse;
+import com.example.schedule.dto.UpdateScheduleRequest;
+import com.example.schedule.dto.UpdateScheduleResponse;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -59,5 +61,17 @@ public class ScheduleService {
             scheduleResponseList.add(scheduleResponse);
         }
         return scheduleResponseList;
+    }
+
+    @Transactional
+    public UpdateScheduleResponse updateSchedule(Long scheduleId, UpdateScheduleRequest request){
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
+                () ->  new IllegalStateException("존재하지 않는 일정입니다.")
+        );
+        schedule.update(request.getName(), request.getTitle());
+        return new UpdateScheduleResponse(schedule.getName(),
+                                          schedule.getTitle(),
+                                          schedule.getContent(),
+                                          schedule.getDate());
     }
 }

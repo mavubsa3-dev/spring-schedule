@@ -31,4 +31,9 @@ public class Schedule {
         this.content = content;
         this.password = password;
     }
+
+    public void update(String name, String title){
+        this.name = name;
+        this.title = title;
+    }
 }
