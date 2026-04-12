@@ -6,6 +6,7 @@ import com.example.schedule.dto.UpdateScheduleRequest;
 import com.example.schedule.dto.UpdateScheduleResponse;
 import com.example.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,13 @@ public class ScheduleController {
         UpdateScheduleResponse result = scheduleService.updateSchedule(scheduleId, request);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    @DeleteMapping("/{scheduleId}")
+    public ResponseEntity<Void> deleteSchedule(@PathVariable Long scheduleId, @RequestBody String password){
+        scheduleService.deleteSchedule(scheduleId, password);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 
 
 
