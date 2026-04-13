@@ -19,7 +19,7 @@ import java.util.List;
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
-    @PostMapping("/schedules")
+    @PostMapping("/comments")
     public ResponseEntity<ScheduleResponse> createSchedule(@RequestBody ScheduleRequest request){
         ScheduleResponse result = scheduleService.addSchedule(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);

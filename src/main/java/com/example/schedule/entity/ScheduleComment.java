@@ -7,8 +7,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Entity
+@Table(name = "schedule_comment")
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class ScheduleComment {
@@ -18,10 +21,13 @@ public class ScheduleComment {
     private String comment;
     private String name;
     private String password;
+    @ManyToOne
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    private String date;
+    private LocalDateTime date;
 
     public ScheduleComment(String comment, String name, String password){
         this.comment = comment;
