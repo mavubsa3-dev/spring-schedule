@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/schedules")
 public class ScheduleCommentController {
-    private ScheduleCommentService scheduleCommentService;
-    @PostMapping("/{scheduleId}/commentns")
+
+    private final ScheduleCommentService scheduleCommentService;
+
+    @PostMapping("/{scheduleId}/comments")
     public ResponseEntity<ScheduleCommentResponse> addComments(@PathVariable Long scheduleId, @RequestBody ScheduleCommentRequest request){
         ScheduleCommentResponse result = scheduleCommentService.addComments(scheduleId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);

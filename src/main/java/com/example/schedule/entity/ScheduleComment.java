@@ -29,9 +29,10 @@ public class ScheduleComment {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime date;
 
-    public ScheduleComment(String comment, String name, String password){
+    public ScheduleComment(String comment, String name, String password, Schedule schedule){
         this.comment = comment;
         this.name = name;
         this.password = password;
+        this.schedule = schedule;
     }
 }
