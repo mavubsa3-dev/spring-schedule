@@ -1,9 +1,6 @@
 package com.example.schedule.service;
 
-import com.example.schedule.dto.ScheduleRequest;
-import com.example.schedule.dto.ScheduleResponse;
-import com.example.schedule.dto.UpdateScheduleRequest;
-import com.example.schedule.dto.UpdateScheduleResponse;
+import com.example.schedule.dto.*;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,32 +30,32 @@ public class ScheduleService {
     }
 
     @Transactional(readOnly = true)
-    public ScheduleResponse getOneSchedule(Long scheduleId){
+    public CheckScheduleResponse getOneSchedule(Long scheduleId){
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () ->  new IllegalStateException("존재하지 않는 일정입니다.")
         );
-        return new ScheduleResponse(schedule.getName(),
+        return new CheckScheduleResponse(schedule.getName(),
                                     schedule.getTitle(),
                                     schedule.getContent(),
                                     schedule.getDate());
     }
 
     @Transactional(readOnly = true)
-    public List<ScheduleResponse> getSchedule(String userName){
+    public List<CheckScheduleResponse> getSchedule(String userName){
         List<Schedule> scheduleList;
         if(!userName.isEmpty()){
             scheduleList = scheduleRepository.findAllByNameOrderByDateDesc(userName);
         }else{
             scheduleList = scheduleRepository.findAllByOrderByDateDesc();
         }
-        List<ScheduleResponse> scheduleResponseList = new ArrayList<>();
+        List<CheckScheduleResponse> scheduleResponseList = new ArrayList<>();
         for(int i=0; i<scheduleList.size(); i++){
             Schedule schedule = scheduleList.get(i);
-            ScheduleResponse scheduleResponse = new ScheduleResponse(schedule.getName(),
+            CheckScheduleResponse checkedschedule = new CheckScheduleResponse(schedule.getName(),
                                                                      schedule.getTitle(),
                                                                      schedule.getContent(),
                                                                      schedule.getDate());
-            scheduleResponseList.add(scheduleResponse);
+            scheduleResponseList.add(checkedschedule);
         }
         return scheduleResponseList;
     }

@@ -1,9 +1,6 @@
 package com.example.schedule.controller;
 
-import com.example.schedule.dto.ScheduleRequest;
-import com.example.schedule.dto.ScheduleResponse;
-import com.example.schedule.dto.UpdateScheduleRequest;
-import com.example.schedule.dto.UpdateScheduleResponse;
+import com.example.schedule.dto.*;
 import com.example.schedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -26,14 +23,14 @@ public class ScheduleController {
     }
 
     @GetMapping("/{scheduleId}")
-    public ResponseEntity<ScheduleResponse> getOneSchedule(@PathVariable Long scheduleId){
-        ScheduleResponse result = scheduleService.getOneSchedule(scheduleId);
+    public ResponseEntity<CheckScheduleResponse> getOneSchedule(@PathVariable Long scheduleId){
+        CheckScheduleResponse result = scheduleService.getOneSchedule(scheduleId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping
-    public ResponseEntity<List<ScheduleResponse>> getSchedule(@RequestParam(required = false) String userName){
-        List<ScheduleResponse> result = scheduleService.getSchedule(userName);
+    public ResponseEntity<List<CheckScheduleResponse>> getSchedule(@RequestParam(required = false) String userName){
+        List<CheckScheduleResponse> result = scheduleService.getSchedule(userName);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
