@@ -21,6 +21,10 @@ public class ScheduleCommentService {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new IllegalStateException("존재하지 않는 일정입니다.")
         );
+        long commentCount = scheduleCommentRepository.countByScheduleId(scheduleId);
+        if(commentCount >= 10){
+            throw new IllegalStateException("댓글은 10개까지만 작성할 수 있습니다.");
+        }
         ScheduleComment comment = new ScheduleComment(
                 request.getComment(),
                 request.getName(),
