@@ -2,6 +2,8 @@ package com.example.schedule.service;
 
 import com.example.schedule.dto.*;
 import com.example.schedule.entity.Schedule;
+import com.example.schedule.entity.ScheduleComment;
+import com.example.schedule.repository.ScheduleCommentRepository;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final ScheduleCommentRepository scheduleCommentRepository;
 
     @Transactional
     public ScheduleResponse addSchedule(ScheduleRequest request){
@@ -30,28 +33,39 @@ public class ScheduleService {
     }
 
     @Transactional(readOnly = true)
-    public CheckScheduleResponse getOneSchedule(Long scheduleId){
+    public CheckOneScheduleResponse getOneSchedule(Long scheduleId){
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () ->  new IllegalStateException("존재하지 않는 일정입니다.")
         );
-        return new CheckScheduleResponse(schedule.getName(),
+        List<ScheduleComment> commentlist = scheduleCommentRepository.findAllByScheduleId(scheduleId);
+        List<AddScheduleCommentResponse> commentResponseList = new ArrayList<>();
+        for(int i=0; i<commentlist.size(); i++){
+            ScheduleComment comment = commentlist.get(i);
+            commentResponseList.add(new AddScheduleCommentResponse(
+                    comment.getComment(),
+                    comment.getName(),
+                    comment.getDate()
+            ));
+        }
+        return new CheckOneScheduleResponse(schedule.getName(),
                                     schedule.getTitle(),
                                     schedule.getContent(),
-                                    schedule.getDate());
+                                    schedule.getDate(),
+                                    commentResponseList);
     }
 
     @Transactional(readOnly = true)
-    public List<CheckScheduleResponse> getSchedule(String userName){
+    public List<CheckAllScheduleResponse> getSchedule(String userName){
         List<Schedule> scheduleList;
         if(!userName.isEmpty()){
             scheduleList = scheduleRepository.findAllByNameOrderByDateDesc(userName);
         }else{
             scheduleList = scheduleRepository.findAllByOrderByDateDesc();
         }
-        List<CheckScheduleResponse> scheduleResponseList = new ArrayList<>();
+        List<CheckAllScheduleResponse> scheduleResponseList = new ArrayList<>();
         for(int i=0; i<scheduleList.size(); i++){
             Schedule schedule = scheduleList.get(i);
-            CheckScheduleResponse checkedschedule = new CheckScheduleResponse(schedule.getName(),
+            CheckAllScheduleResponse checkedschedule = new CheckAllScheduleResponse(schedule.getName(),
                                                                      schedule.getTitle(),
                                                                      schedule.getContent(),
                                                                      schedule.getDate());

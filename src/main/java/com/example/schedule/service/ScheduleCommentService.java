@@ -1,7 +1,7 @@
 package com.example.schedule.service;
 
-import com.example.schedule.dto.ScheduleCommentRequest;
-import com.example.schedule.dto.ScheduleCommentResponse;
+import com.example.schedule.dto.AddScheduleCommentRequest;
+import com.example.schedule.dto.AddScheduleCommentResponse;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.entity.ScheduleComment;
 import com.example.schedule.repository.ScheduleCommentRepository;
@@ -17,7 +17,7 @@ public class ScheduleCommentService {
     private final ScheduleCommentRepository scheduleCommentRepository;
 
     @Transactional
-    public ScheduleCommentResponse addComments(Long scheduleId, ScheduleCommentRequest request){
+    public AddScheduleCommentResponse addComments(Long scheduleId, AddScheduleCommentRequest request){
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new IllegalStateException("존재하지 않는 일정입니다.")
         );
@@ -32,7 +32,7 @@ public class ScheduleCommentService {
                 schedule
         );
         ScheduleComment savedComment = scheduleCommentRepository.save(comment);
-        return new ScheduleCommentResponse(
+        return new AddScheduleCommentResponse(
                 savedComment.getComment(),
                 savedComment.getName(),
                 savedComment.getDate()
