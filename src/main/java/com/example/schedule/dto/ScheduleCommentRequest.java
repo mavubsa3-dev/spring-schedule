@@ -1,15 +1,13 @@
 package com.example.schedule.dto;
 
-
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class ScheduleRequest {
+public class ScheduleCommentRequest {
+    private String comment;
     private String name;
-    private String title;
-    private String content;
     private String password;
     private LocalDateTime date;
 }
