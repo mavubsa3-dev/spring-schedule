@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class ScheduleRequest {
+public class AddScheduleRequest {
     private String name;
     private String title;
     private String content;

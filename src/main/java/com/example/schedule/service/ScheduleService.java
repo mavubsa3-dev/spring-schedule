@@ -19,14 +19,14 @@ public class ScheduleService {
     private final ScheduleCommentRepository scheduleCommentRepository;
 
     @Transactional
-    public ScheduleResponse addSchedule(ScheduleRequest request){
+    public AddScheduleResponse addSchedule(AddScheduleRequest request){
         Schedule schedule = new Schedule(request.getName(),
                                          request.getTitle(),
                                          request.getContent(),
                                          request.getPassword());
 
         Schedule savedSchedule = scheduleRepository.save(schedule);
-        return new ScheduleResponse(savedSchedule.getName(),
+        return new AddScheduleResponse(savedSchedule.getName(),
                                     savedSchedule.getTitle(),
                                     savedSchedule.getContent(),
                                     savedSchedule.getDate());
