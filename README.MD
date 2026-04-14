@@ -24,3 +24,6 @@
 
 ### 6. 일정 단건 조회 기능 업그레이드
 #### AddScheduleCommentResponse 타입으로 리스트 선언 후, 댓글 정보를 담아 CheckOneScheduleResponse에 같이 반환.
+
+### ERD
+![Image](https://github.com/user-attachments/assets/859018ae-0534-40a0-8c0a-ec1bd15e1938)

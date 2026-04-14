@@ -25,7 +25,7 @@ public class ScheduleComment {
     @ManyToOne
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
-
+sc
     @CreatedDate
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
